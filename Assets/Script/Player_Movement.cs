@@ -13,20 +13,28 @@ public class Player_Movement : MonoBehaviour
     private List<Vector3Int> MovementList;
     public Transform RedGoalLine;
     public Transform BlueGoalLine;
-    //public bool IsSelected;
+    public bool IsSelected = false;
+    public bool ResetDesiredPosition = false;
     
     
     // Start is called before the first frame update
     void Start()
     {
         MovementList = new List<Vector3Int>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (NBMovement < MaxMovement )
+        if (NBMovement < MaxMovement && IsSelected)
         {
+            if(ResetDesiredPosition)
+            {
+                DesiredPosition.transform.position = PlayerTransform.position;
+                ResetDesiredPosition = false;
+            }
+            
             //Deplacement de du déplacement désiré (flèche)
             if (Input.GetKeyDown(KeyCode.D)) { // Right
                 DesiredPosition.transform.position += new Vector3Int(1, 0, 0);
@@ -47,6 +55,7 @@ public class Player_Movement : MonoBehaviour
                 for (int i = 0; i < MovementList.Count; i++)
                 {
                     PlayerTransform.position += MovementList[i];
+                    VerifPlayerToDesired();
                 }
                 MovementList = new List<Vector3Int>();
             }
@@ -54,6 +63,7 @@ public class Player_Movement : MonoBehaviour
         }
         
         GoingThroughGoal();
+        
     }
     
 
@@ -64,6 +74,8 @@ public class Player_Movement : MonoBehaviour
 
         if (xOK && yOK)
         {
+            IsSelected = false;
+            FindObjectOfType<CharactereSelection>().CharacterSelected = false;
             return true;
         }
         return false;
