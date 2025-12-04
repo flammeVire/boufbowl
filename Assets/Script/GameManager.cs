@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
 
+    private bool IsCounting;
+    private bool WasClicked;
+
     [Header("TimerData")]
     [SerializeField] float TurnTimer;
     private float currentTimer;
@@ -18,20 +21,34 @@ public class GameManager : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Debug.Log("InputPressed");
-            LaunchTimer();
+            if (!WasClicked)
+            {
+                WasClicked = true;
+                LaunchTimer();
+            }
         }
     }
     private void Start()
     {
         GameManager.instance = this;
         currentTimer = 0f;
+        IsCounting = false;
+        WasClicked = false;
     }
 
     #region timer
     public void ResetTimer()
     {
-        StopCoroutine(TimerRoutine);
-        TurnTimer = 0f;
+        if (IsCounting)
+        {
+            StopCoroutine(TimerRoutine);
+            currentTimer = 0f;
+        }
+        else
+        {
+            currentTimer = 0f;
+            LaunchTimer();
+        }
     }
 
     public void LaunchTimer()
@@ -43,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator timerRoutine()
     {
-
+        IsCounting = true;
         while (TimerIsFinish())
         {
             Debug.Log("Timer = " + currentTimer);
@@ -52,6 +69,7 @@ public class GameManager : MonoBehaviour
             QuartTimer();
 
         }
+        IsCounting = false;
     }
 
     void QuartTimer()
@@ -78,4 +96,9 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+
+    public float GetTurnTimer()
+    {
+        return TurnTimer;
+    }
 }
