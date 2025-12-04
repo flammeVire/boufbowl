@@ -13,6 +13,7 @@ public class Player_Movement : MonoBehaviour
     private List<Vector3Int> MovementList;
     public Transform RedGoalLine;
     public Transform BlueGoalLine;
+    public bool IsSelected;
     
     
     // Start is called before the first frame update
@@ -24,7 +25,7 @@ public class Player_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (NBMovement < MaxMovement)
+        if (NBMovement < MaxMovement && IsSelected)
         {
             //Deplacement de du déplacement désiré (flèche)
             if (Input.GetKeyDown(KeyCode.D)) { // Right
