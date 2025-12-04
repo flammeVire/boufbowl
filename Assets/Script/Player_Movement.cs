@@ -51,7 +51,10 @@ public class Player_Movement : MonoBehaviour
             }
             
         }
+        
+        GoingThroughGoal();
     }
+    
 
     bool VerifPlayerToDesired()
     {
@@ -88,11 +91,11 @@ public class Player_Movement : MonoBehaviour
 
    void GoingThroughGoal()
    {
-       if (CompareTag("Red Team") && PlayerTransform.position.z >= BlueGoalLine.position.z)
+       if (this.gameObject.CompareTag("Red Team") && PlayerTransform.position.x >= BlueGoalLine.position.x)
        {
            Debug.Log("But de l'equipe rouge");
        }
-       else if (CompareTag("Blue Team") && PlayerTransform.position.z >= RedGoalLine.position.z)
+       else if (this.gameObject.CompareTag("Blue Team") && PlayerTransform.position.x >= RedGoalLine.position.x)
        {
            Debug.Log("But de l'equipe Bleue");
        }
