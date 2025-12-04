@@ -18,11 +18,19 @@ public class CharactereSelection : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.D))
             {
                 selectedCharacter ++;
+                if (selectedCharacter >= characters.Count)
+                {
+                    selectedCharacter = 0;
+                }
                 Debug.Log(characters[selectedCharacter]);
             }
             else if (Input.GetKeyDown(KeyCode.Q))
             {
                 selectedCharacter --;
+                if (selectedCharacter < 0)
+                {
+                    selectedCharacter = characters.Count - 1;
+                }
                 Debug.Log(characters[selectedCharacter]);
             }
 
@@ -33,8 +41,21 @@ public class CharactereSelection : MonoBehaviour
                 CharacterSelected = true;
                 characters[selectedCharacter].GetComponent<Player_Movement>().ResetDesiredPosition = true;
                 Debug.Log(CharacterSelected);
+                characters.RemoveAt(selectedCharacter);
+            }
+
+            if (characters.Count == 0)
+            {
+                RoundFinished();
             }
         }
     }
+
+    void RoundFinished()
+    {
+        Debug.Log("Tour Fini");
+    }
+
+    
     
 }
