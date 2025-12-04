@@ -244,9 +244,11 @@ MonoBehaviour:
   PlayerTransform: {fileID: 388820718}
   DesiredPosition: {fileID: 744120708}
   NBMovement: 0
-  MaxMovement: 20
+  MaxMovement: 3
   RedGoalLine: {fileID: 1110049366}
   BlueGoalLine: {fileID: 1110049366}
+  IsSelected: 0
+  ResetDesiredPosition: 0
 --- !u!114 &388820720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TurnTimer: 5
+  MaxTurn: 10
 --- !u!4 &592939984
 Transform:
   m_ObjectHideFlags: 0
