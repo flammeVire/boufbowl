@@ -15,6 +15,8 @@ public class Player_Movement : MonoBehaviour
     public Transform BlueGoalLine;
     public bool IsSelected = false;
     public bool ResetDesiredPosition = false;
+    public CharactereSelection CharactereSelection;
+    
     
     
     
@@ -38,6 +40,7 @@ public class Player_Movement : MonoBehaviour
             
             //Deplacement de du déplacement désiré (flèche)
             if (Input.GetKeyDown(KeyCode.D)) { // Right
+                
                 DesiredPosition.transform.position += new Vector3Int(1, 0, 0);
                 MovementList.Add(new Vector3Int(1, 0, 0));
             } else if (Input.GetKeyDown(KeyCode.W)) { // Up
@@ -55,18 +58,18 @@ public class Player_Movement : MonoBehaviour
             {
                 for (int i = 0; i < MovementList.Count; i++)
                 {
-                    PlayerTransform.position += MovementList[i];
-                    VerifPlayerToDesired();
-                    
+                    //PlayerTransform.position += MovementList[i];
+                    //VerifPlayerToDesired();
+                    IsSelected = false;
+                    CharactereSelection.CharacterSelected = false;
                 }
-                GetComponent<CharactereSelection>().AllMovementList.Add(MovementList);
+                CharactereSelection.AllMovementList.Add(MovementList);
+                CharactereSelection.NbPlayerValided ++;
                 MovementList = new List<Vector3Int>();
             }
             
         }
-        
         GoingThroughGoal();
-        
     }
     
 
