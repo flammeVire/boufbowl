@@ -10,11 +10,12 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] private GameObject DesiredPosition;
     [SerializeField] private int NBMovement;
     [SerializeField] private int MaxMovement;
-    private List<Vector3Int> MovementList;
+    public List<Vector3Int> MovementList;
     public Transform RedGoalLine;
     public Transform BlueGoalLine;
     public bool IsSelected = false;
     public bool ResetDesiredPosition = false;
+    
     
     
     // Start is called before the first frame update
@@ -56,7 +57,9 @@ public class Player_Movement : MonoBehaviour
                 {
                     PlayerTransform.position += MovementList[i];
                     VerifPlayerToDesired();
+                    
                 }
+                GetComponent<CharactereSelection>().AllMovementList.Add(MovementList);
                 MovementList = new List<Vector3Int>();
             }
             
