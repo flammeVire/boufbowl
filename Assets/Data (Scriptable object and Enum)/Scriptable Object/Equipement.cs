@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Equipement", order = 2)]
+
+
 public class Equipement : ScriptableObject
 {
     // nom de l'objet, pas utile mais pratique
