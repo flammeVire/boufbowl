@@ -24,7 +24,7 @@ public class CharactereSelection : MonoBehaviour
 
         if (Input.GetButtonDown("Space"))
         {
-            characters[selectedCharacter].GetComponent<>();
+            //characters[selectedCharacter].GetComponent<>();
         }
     }
     
