@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Red Team
   - Blue Team
+  - player
+  - "ali\xE9"
+  - ally
   layers:
   - Default
   - TransparentFX
