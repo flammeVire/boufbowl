@@ -380,6 +380,7 @@ MonoBehaviour:
   BlueGoalLine: {fileID: 679942750}
   IsSelected: 0
   ResetDesiredPosition: 0
+  CharactereSelection: {fileID: 2042897664}
 --- !u!136 &942458068
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -646,6 +647,7 @@ MonoBehaviour:
   BlueGoalLine: {fileID: 679942750}
   IsSelected: 0
   ResetDesiredPosition: 0
+  CharactereSelection: {fileID: 2042897664}
 --- !u!136 &1395886676
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -728,7 +730,7 @@ Transform:
   m_GameObject: {fileID: 1395886674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.64, y: 1, z: -0.56}
+  m_LocalPosition: {x: -8, y: 1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -775,6 +777,7 @@ MonoBehaviour:
   BlueGoalLine: {fileID: 679942750}
   IsSelected: 0
   ResetDesiredPosition: 0
+  CharactereSelection: {fileID: 2042897664}
 --- !u!136 &1442483744
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -904,6 +907,7 @@ MonoBehaviour:
   BlueGoalLine: {fileID: 679942750}
   IsSelected: 0
   ResetDesiredPosition: 0
+  CharactereSelection: {fileID: 2042897664}
 --- !u!136 &1500304060
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -986,7 +990,7 @@ Transform:
   m_GameObject: {fileID: 1500304058}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 1, z: -4.1}
+  m_LocalPosition: {x: -3, y: 1, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1033,6 +1037,7 @@ MonoBehaviour:
   BlueGoalLine: {fileID: 679942750}
   IsSelected: 0
   ResetDesiredPosition: 0
+  CharactereSelection: {fileID: 2042897664}
 --- !u!136 &1848060237
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1115,7 +1120,7 @@ Transform:
   m_GameObject: {fileID: 1848060235}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.99, y: 1, z: 4}
+  m_LocalPosition: {x: 2, y: 1, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1150,12 +1155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdbb5624371bab141a87ae30a43ca480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characters:
-  - {fileID: 1442483742}
-  - {fileID: 1848060235}
-  - {fileID: 1500304058}
-  - {fileID: 1395886674}
-  - {fileID: 942458066}
   characteres2:
   - {fileID: 1442483742}
   - {fileID: 1848060235}
@@ -1163,6 +1162,7 @@ MonoBehaviour:
   - {fileID: 1395886674}
   - {fileID: 942458066}
   CharacterSelected: 0
+  NbPlayerValided: 0
 --- !u!4 &2042897665
 Transform:
   m_ObjectHideFlags: 0
