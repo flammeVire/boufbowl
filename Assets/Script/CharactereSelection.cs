@@ -102,9 +102,9 @@ public class CharactereSelection : MonoBehaviour
                 {
                     Debug.Log(characters[selectedCharacter]);
                 }
+                indicator.transform.position = new Vector3(characters[selectedCharacter].transform.position.x, -1.5f, characters[selectedCharacter].transform.position.z);
             }
         }
-        indicator.transform.position = new Vector3(characters[selectedCharacter].transform.position.x, -1.5f, characters[selectedCharacter].transform.position.z);
     }
     
     public void RoundFinished()

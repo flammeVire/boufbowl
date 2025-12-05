@@ -54,33 +54,33 @@ public class PassePlayer : MonoBehaviour
     public void SelectedAlly() {
         if (PositionAlly.Length == 0)
         {
-            //Debug.Log("No Ally");
+            Debug.Log("No Ally");
             return;
         }
         if (Input.GetKeyDown(KeyCode.D)) 
         {
-            //Debug.Log("D");
+            Debug.Log("D");
             indexCurrentAlly++;
             if (indexCurrentAlly >= PositionAlly.Length) 
             {
                 indexCurrentAlly = 0;
             }
-            //Debug.Log("Sélection allié : " + indexCurrentAlly);
+            Debug.Log("Sélection allié : " + indexCurrentAlly);
         }
         if (Input.GetKeyDown(KeyCode.Q))  
         { 
-            //Debug.Log("Q");
+            Debug.Log("Q");
             indexCurrentAlly--;
             if (indexCurrentAlly < 0) 
             {
                 indexCurrentAlly = PositionAlly.Length - 1;
             }
-            //Debug.Log("Sélection allié : " + indexCurrentAlly);
+            Debug.Log("Sélection allié : " + indexCurrentAlly);
         }
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
             AllySelected = indexCurrentAlly;
-            //Debug.Log("Allié CONFIRMÉ : " + AllySelected);
+            Debug.Log("Allié CONFIRMÉ : " + AllySelected);
             InitialiserPasse();
         }
     }
@@ -93,6 +93,7 @@ public class PassePlayer : MonoBehaviour
             choixPasse = false;
         }
     }
+
     public void LancerBallUpdate()
     {
         if (transformBall == null)
@@ -108,11 +109,11 @@ public class PassePlayer : MonoBehaviour
         {
             isBallMoving = false;
             PositionAlly[AllySelected].GetComponent<PassePlayer>().statCharacter.isHaveBall = true;
-            //Debug.Log(PositionAlly[AllySelected].GetComponent<PassePlayer>().statCharacter.isHaveBall);
+            Debug.Log(PositionAlly[AllySelected].GetComponent<PassePlayer>().statCharacter.isHaveBall);
             AllySelected = -1;
             statCharacter.isHaveBall = false;
-            //Debug.Log(statCharacter.isHaveBall);
-            //Debug.Log("Passe terminée.");
+            Debug.Log(statCharacter.isHaveBall);
+            Debug.Log("Passe terminée.");
         }
     }
 }

@@ -8,8 +8,15 @@ public class MapManager : MonoBehaviour
 
     public static MapManager instance;
 
+    public Transform[] SpawnPoint;
+
     private void Start()
     {
+        SpawnPoint = new Transform[AllObject.Count];
+        for(int i = 0; i < SpawnPoint.Length; i++)
+        {
+            SpawnPoint[i] = AllObject[i].transform;
+        }
         instance = this;
     }
 
@@ -42,5 +49,13 @@ public class MapManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ResetAllSpawn()
+    {
+        for(int i = 0; i< SpawnPoint.Length; i++)
+        {
+            AllObject[i].transform.position = SpawnPoint[i].position;
+        }
     }
 }
