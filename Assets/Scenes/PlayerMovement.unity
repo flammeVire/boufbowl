@@ -381,6 +381,8 @@ MonoBehaviour:
   IsSelected: 0
   ResetDesiredPosition: 0
   CharactereSelection: {fileID: 2042897664}
+  MaxArea: {x: 10, y: 0, z: 5}
+  MinArea: {x: -10, y: 0, z: -5}
 --- !u!136 &942458068
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -648,6 +650,8 @@ MonoBehaviour:
   IsSelected: 0
   ResetDesiredPosition: 0
   CharactereSelection: {fileID: 2042897664}
+  MaxArea: {x: 10, y: 0, z: 5}
+  MinArea: {x: -10, y: 0, z: -5}
 --- !u!136 &1395886676
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -778,6 +782,8 @@ MonoBehaviour:
   IsSelected: 0
   ResetDesiredPosition: 0
   CharactereSelection: {fileID: 2042897664}
+  MaxArea: {x: 10, y: 0, z: 5}
+  MinArea: {x: -10, y: 0, z: -5}
 --- !u!136 &1442483744
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -908,6 +914,8 @@ MonoBehaviour:
   IsSelected: 0
   ResetDesiredPosition: 0
   CharactereSelection: {fileID: 2042897664}
+  MaxArea: {x: 10, y: 0, z: 5}
+  MinArea: {x: -10, y: 0, z: -5}
 --- !u!136 &1500304060
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1038,6 +1046,8 @@ MonoBehaviour:
   IsSelected: 0
   ResetDesiredPosition: 0
   CharactereSelection: {fileID: 2042897664}
+  MaxArea: {x: 10, y: 0, z: 5}
+  MinArea: {x: -10, y: 0, z: -5}
 --- !u!136 &1848060237
 CapsuleCollider:
   m_ObjectHideFlags: 0
