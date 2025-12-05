@@ -23,25 +23,29 @@ public class CharactereSelection : MonoBehaviour
     {
         if (CharacterSelected == false)
         {
-            selectPlayer();
-
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (GameManager.instance.canMove)
             {
-                Debug.Log("Space Pressed");
-                characters[selectedCharacter].GetComponent<Player_Movement>().IsSelected = true;
-                CharacterSelected = true;
-                characters[selectedCharacter].GetComponent<Player_Movement>().ResetDesiredPosition = true;
-                
-                Debug.Log(characters[selectedCharacter].GetComponent<Player_Movement>().ResetDesiredPosition);
 
-                Debug.Log(CharacterSelected);
-                characters.RemoveAt(selectedCharacter);
-            }
+                selectPlayer();
 
-            if (NbPlayerValided == 5)
-            {
-                RoundFinished();
-                NbPlayerValided = 0;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Debug.Log("Space Pressed");
+                    characters[selectedCharacter].GetComponent<Player_Movement>().IsSelected = true;
+                    CharacterSelected = true;
+                    characters[selectedCharacter].GetComponent<Player_Movement>().ResetDesiredPosition = true;
+
+                    Debug.Log(characters[selectedCharacter].GetComponent<Player_Movement>().ResetDesiredPosition);
+
+                    Debug.Log(CharacterSelected);
+                    characters.RemoveAt(selectedCharacter);
+                }
+
+                if (NbPlayerValided == 5)
+                {
+                    RoundFinished();
+                    NbPlayerValided = 0;
+                }
             }
         }
     }
@@ -88,11 +92,20 @@ public class CharactereSelection : MonoBehaviour
             for (int j = 0; j < AllMovementList[character].Count; j++)
             {
                 Debug.Log(AllMovementList[character]);
+
                 Vector3Int movement = AllMovementList[character][j];
                 character.transform.position += movement;
+
+                Debug.Log(character);
+                if (MapManager.instance.SomethingOverlap(character))
+                {
+                    Debug.Log("Overlap");
+                    //character.transform.position -= movement;
+                }
                 yield return  new WaitForSeconds(0.5f);
             }
         }
+        GameManager.instance.AllPlayerHaveMoved = true;
         yield return null;
     }
 }

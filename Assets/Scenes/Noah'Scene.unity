@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 592939984}
   - component: {fileID: 592939983}
   - component: {fileID: 592939982}
+  - component: {fileID: 592939985}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -378,9 +379,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15a9016d7d34314482fa682f489844d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnTimer: 10
+  canMove: 1
+  TurnTimer: 120
   iaManagement: {fileID: 554389994}
   MaxTurn: 10
+  AllPlayerHaveMoved: 0
 --- !u!4 &592939984
 Transform:
   m_ObjectHideFlags: 0
@@ -396,6 +399,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &592939985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592939981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddaaa1ac440c404992ff13c89ed4992, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllObject:
+  - {fileID: 1347489411}
+  - {fileID: 1094044631}
+  - {fileID: 2064784763}
+  - {fileID: 1523312865}
+  - {fileID: 179534042}
+  - {fileID: 747207624}
+  - {fileID: 1303053337}
+  - {fileID: 1337305394}
+  - {fileID: 1144095652}
+  - {fileID: 967202093}
 --- !u!1 &678201231
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,8 +616,8 @@ MonoBehaviour:
   IsSelected: 0
   ResetDesiredPosition: 0
   CharactereSelection: {fileID: 1693311327}
-  MaxArea: {x: 0, y: 0, z: 0}
-  MinArea: {x: 0, y: 0, z: 0}
+  MaxArea: {x: 10, y: 0, z: 5}
+  MinArea: {x: -10, y: 0, z: -5}
 --- !u!136 &747207627
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -829,8 +855,8 @@ MonoBehaviour:
   IsSelected: 0
   ResetDesiredPosition: 0
   CharactereSelection: {fileID: 1693311327}
-  MaxArea: {x: 0, y: 0, z: 0}
-  MinArea: {x: 0, y: 0, z: 0}
+  MaxArea: {x: 10, y: 0, z: 5}
+  MinArea: {x: -10, y: 0, z: -5}
 --- !u!136 &967202096
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1087,6 +1113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1110049366}
   - component: {fileID: 1110049365}
+  - component: {fileID: 1110049367}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1171,6 +1198,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1110049367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110049364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &1130684717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,8 +1402,8 @@ MonoBehaviour:
   IsSelected: 0
   ResetDesiredPosition: 0
   CharactereSelection: {fileID: 1693311327}
-  MaxArea: {x: 0, y: 0, z: 0}
-  MinArea: {x: 0, y: 0, z: 0}
+  MaxArea: {x: 10, y: 0, z: 5}
+  MinArea: {x: -10, y: 0, z: -5}
 --- !u!136 &1144095655
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1397,7 +1447,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7bb2dc323f65f2140b692159a1aeb8bb, type: 2}
+  - {fileID: -876546973899608171, guid: 36c7900df252c7b42b8415dc5ddebeb4, type: 3}
+  - {fileID: -876546973899608171, guid: 36c7900df252c7b42b8415dc5ddebeb4, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1499,8 +1550,8 @@ MonoBehaviour:
   IsSelected: 0
   ResetDesiredPosition: 0
   CharactereSelection: {fileID: 1693311327}
-  MaxArea: {x: 0, y: 0, z: 0}
-  MinArea: {x: 0, y: 0, z: 0}
+  MaxArea: {x: 10, y: 0, z: 5}
+  MinArea: {x: -10, y: 0, z: -5}
 --- !u!136 &1303053340
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1544,7 +1595,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7bb2dc323f65f2140b692159a1aeb8bb, type: 2}
+  - {fileID: -876546973899608171, guid: 36c7900df252c7b42b8415dc5ddebeb4, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1646,8 +1697,8 @@ MonoBehaviour:
   IsSelected: 0
   ResetDesiredPosition: 0
   CharactereSelection: {fileID: 1693311327}
-  MaxArea: {x: 0, y: 0, z: 0}
-  MinArea: {x: 0, y: 0, z: 0}
+  MaxArea: {x: 10, y: 0, z: 5}
+  MinArea: {x: -10, y: 0, z: -5}
 --- !u!136 &1337305397
 CapsuleCollider:
   m_ObjectHideFlags: 0
