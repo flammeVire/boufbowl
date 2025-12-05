@@ -10,15 +10,17 @@ public class PassePlayer : MonoBehaviour
     public int indexCurrentAlly = 0;
     public bool choixPasse = false;
     public Transform transformBall;
-    public float passSpeed = 10f; 
-
+    public float passSpeed = 10f;
+    public StatCharacter statCharacter;
+    
+    
     //priver
     private Vector3 targetPosition;
     private bool isBallMoving = false;
     
     void Start()
     {
-        //transformBall = GameObject.FindGameObjectWithTag("ball").transform;
+        
     }
     
     void Update()
@@ -49,7 +51,7 @@ public class PassePlayer : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow)) 
+        if (Input.GetKeyDown(KeyCode.D)) 
         {
             indexCurrentAlly++;
             if (indexCurrentAlly >= PositionAlly.Length) 
@@ -58,7 +60,7 @@ public class PassePlayer : MonoBehaviour
             }
             Debug.Log("Sélection allié : " + indexCurrentAlly);
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))  
+        if (Input.GetKeyDown(KeyCode.Q))  
         { 
             indexCurrentAlly--;
             if (indexCurrentAlly < 0) 
@@ -97,7 +99,11 @@ public class PassePlayer : MonoBehaviour
         if (transformBall.position == targetPosition)
         {
             isBallMoving = false;
+            PositionAlly[AllySelected].GetComponent<PassePlayer>().statCharacter.isHaveBall = true;
+            //Debug.Log(PositionAlly[AllySelected].GetComponent<PassePlayer>().statCharacter.isHaveBall);
             AllySelected = -1;
+            statCharacter.isHaveBall = false;
+            //Debug.Log(statCharacter.isHaveBall);
             Debug.Log("Passe terminée.");
         }
     }
