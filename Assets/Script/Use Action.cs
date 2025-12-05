@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class UseAction : MonoBehaviour
 {
     private bool chosen = true;
+    private bool locked = false;
+
+    private int active = 4;
 
     private IEnumerator coroutine;
 
@@ -41,7 +44,7 @@ public class UseAction : MonoBehaviour
                 baseWheel[i].color = new Color32(150, 150, 150, 100);
         }
 
-        if (Input.GetKeyDown("right") && chosen)
+        if (Input.GetKeyDown("right") && chosen && !locked)
         {
             step += 1;
             if (step > state.Length - 1)
@@ -49,7 +52,7 @@ public class UseAction : MonoBehaviour
                 step = 0;
             }
         }
-        else if (Input.GetKeyDown("left") && chosen)
+        else if (Input.GetKeyDown("left") && chosen && !locked)
         {
             step -= 1;
             if (step < 0)
@@ -57,7 +60,7 @@ public class UseAction : MonoBehaviour
                 step = state.Length - 1;
             }
         }
-        else if ((Input.GetKeyDown("space")) && chosen)
+        else if ((Input.GetKeyDown("space")) && chosen && !locked)
         {
             switch (state[step])
             {
@@ -81,7 +84,7 @@ public class UseAction : MonoBehaviour
 
     IEnumerator Act()
     {
-        int active = 4;
+        active = 4;
         chosen = false;
 
         while (!chosen)
@@ -97,7 +100,7 @@ public class UseAction : MonoBehaviour
 
             yield return null;
 
-            if (Input.GetKeyDown("right"))
+            if (Input.GetKeyDown("right") && !locked)
             {
                 active += 1;
                 if (active > choice.Length - 1)
@@ -105,7 +108,7 @@ public class UseAction : MonoBehaviour
                     active = 0;
                 }
             }
-            else if (Input.GetKeyDown("left"))
+            else if (Input.GetKeyDown("left") && !locked)
             {
                 active -= 1;
                 if (active < 0)
@@ -113,7 +116,7 @@ public class UseAction : MonoBehaviour
                     active = choice.Length - 1;
                 }
             }
-            else if ((Input.GetKeyDown("space")))
+            else if ((Input.GetKeyDown("space")) && !locked)
             {
                 switch (choice[active])
                 {
@@ -156,6 +159,46 @@ public class UseAction : MonoBehaviour
         for (int i = 0; i < actionWheel.Length; i++)
         {
             actionWheel[i].color = new Color32(0, 0, 0, 0);
+        }
+    }
+
+    void HideAll()
+    {
+        locked = true;
+
+        for (int i = 0; i < actionWheel.Length; i++)
+        {
+            actionWheel[i].color = new Color32(255, 255, 255, 0);
+        }
+
+        for (int i = 0; i < baseWheel.Length; i++)
+        {
+            baseWheel[i].color = new Color32(150, 150, 150, 100);
+        }
+    }
+
+    void ShowAll()
+    {
+        locked = false;
+        
+        if (state[step] == State.Action)
+        {
+            for (int i = 0; i < actionWheel.Length; i++)
+            {
+                if (active == i)
+                    actionWheel[i].color = new Color32(255, 255, 255, 255);
+                else
+                    actionWheel[i].color = new Color32(100, 100, 100, 100);
+            }
+        }
+
+
+        for (int i = 0; i < baseWheel.Length; i++)
+        {
+            if (step == i)
+                baseWheel[i].color = new Color32(255, 255, 255, 255);
+            else
+                baseWheel[i].color = new Color32(150, 150, 150, 100);
         }
     }
 
