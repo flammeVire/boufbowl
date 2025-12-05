@@ -16,7 +16,9 @@ public class Player_Movement : MonoBehaviour
     public bool IsSelected = false;
     public bool ResetDesiredPosition = false;
     public CharactereSelection CharactereSelection;
-    
+    private Vector3Int TestPosition;
+    public Vector3Int MaxArea;
+    public Vector3Int MinArea;
     
     
     
@@ -34,25 +36,37 @@ public class Player_Movement : MonoBehaviour
         {
             if(ResetDesiredPosition)
             {
-                DesiredPosition.transform.position = PlayerTransform.position;
+                Debug.Log("Reset Desired Position");
+                TestPosition = new Vector3Int((int) PlayerTransform.position.x, (int)PlayerTransform.position.y, (int)PlayerTransform.position.z);
+                Debug.Log(DesiredPosition.transform.position);
                 ResetDesiredPosition = false;
             }
             
             //Deplacement de du déplacement désiré (flèche)
             if (Input.GetKeyDown(KeyCode.D)) { // Right
                 
-                DesiredPosition.transform.position += new Vector3Int(1, 0, 0);
+                TestPosition += new Vector3Int(1, 0, 0);
                 MovementList.Add(new Vector3Int(1, 0, 0));
             } else if (Input.GetKeyDown(KeyCode.W)) { // Up
-                DesiredPosition.transform.position += new Vector3Int(0, 0, 1);
+                TestPosition += new Vector3Int(0, 0, 1);
                 MovementList.Add(new Vector3Int(0, 0, 1));
             } else if (Input.GetKeyDown(KeyCode.A)) { // Left
-                DesiredPosition.transform.position += new Vector3Int(-1, 0, 0);
+                TestPosition += new Vector3Int(-1, 0, 0);
                 MovementList.Add(new Vector3Int(-1, 0, 0));
             } else if (Input.GetKeyDown(KeyCode.S)) { // Down
-                DesiredPosition.transform.position += new Vector3Int(0, 0, -1);
+                TestPosition += new Vector3Int(0, 0, -1);
                 MovementList.Add( new Vector3Int(0, 0, -1));
             }
+
+            if (TestPosition.x > MinArea.x ||
+                TestPosition.x < MaxArea.x ||
+                TestPosition.y > MinArea.y ||
+                TestPosition.y < MaxArea.y)
+            {
+                DesiredPosition.transform.position = TestPosition;
+            }
+            
+            
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -63,12 +77,13 @@ public class Player_Movement : MonoBehaviour
                     IsSelected = false;
                     CharactereSelection.CharacterSelected = false;
                 }
-                CharactereSelection.AllMovementList.Add(MovementList);
+                CharactereSelection.AllMovementList.Add(gameObject, MovementList);
                 CharactereSelection.NbPlayerValided ++;
                 MovementList = new List<Vector3Int>();
             }
             
         }
+        
         GoingThroughGoal();
     }
     
@@ -88,25 +103,6 @@ public class Player_Movement : MonoBehaviour
     }
     
     
-    
-    //private IEnumerator MovePlayer()
-    //{
-    //    for (int i = 0; i < MovementList.Count; i++)
-    //    {
-    //        PlayerTransform.position += MovementList[i];
-     //       if (VerifPlayerToDesired())
-     //       {
-     //           break;
-     //       }
-     //       else
-      //      {
-     //           PlayerTransform.position = MovementList[i];
-     //       }
-     //   }
-     //           
-     //   MovementList = new List<Vector3Int>();
-     //   yield return new WaitUntil(() => PlayerTransform == DesiredPosition.transform);
-   // }
 
    void GoingThroughGoal()
    {

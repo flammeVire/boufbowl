@@ -1,24 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UseAction : MonoBehaviour
 {
     private bool chosen = true;
+
     private IEnumerator coroutine;
 
-    private enum State {Action, Movement, Skip, ChangePlayer};
-    private enum AvailableAction {Grab, Pass, Throw, Boot, Shield, Consumable, Return}
+    private enum State {Movement, Action, Skip, ChangePlayer};
+    private enum AvailableAction {Grab, Pass, Throw, Glove, Boot, Shield, Consumable, Return}
     
-    private State[] state = new State[] {State.Action, State.Movement, State.ChangePlayer, State.Skip };
+    private State[] state = new State[] {State.Movement, State.Action, State.ChangePlayer, State.Skip };
     private AvailableAction[] choice =
-        new AvailableAction[] {AvailableAction.Grab, AvailableAction.Pass, AvailableAction.Throw, AvailableAction.Boot, AvailableAction.Shield, AvailableAction.Consumable, AvailableAction.Return };
-    
+        new AvailableAction[] {AvailableAction.Grab, AvailableAction.Pass, AvailableAction.Throw, AvailableAction.Glove, AvailableAction.Boot, AvailableAction.Shield, AvailableAction.Consumable, AvailableAction.Return };
+
+    [SerializeField] private Image[] baseWheel;
+    [SerializeField] private Image[] actionWheel;
+
     private int step = 0;
+
+    void Start()
+    {
+        step = 0;
+        for (int i = 0; i < actionWheel.Length; i++)
+        {
+            actionWheel[i].color = new Color32(0, 0, 0, 0);
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
+        for (int i = 0; i < baseWheel.Length; i++)
+        {
+            if (step == i)
+                baseWheel[i].color = new Color32(255, 255, 255, 255);
+            else
+                baseWheel[i].color = new Color32(150, 150, 150, 100);
+        }
+
         if (Input.GetKeyDown("right") && chosen)
         {
             step += 1;
@@ -59,12 +81,22 @@ public class UseAction : MonoBehaviour
 
     IEnumerator Act()
     {
-        int active = 2;
+        int active = 4;
         chosen = false;
 
         while (!chosen)
         {
+
+            for (int i = 0; i < actionWheel.Length; i++)
+            {
+                if (active == i)
+                    actionWheel[i].color = new Color32(255, 255, 255, 255);
+                else
+                    actionWheel[i].color = new Color32(100, 100, 100, 100);
+            }
+
             yield return null;
+
             if (Input.GetKeyDown("right"))
             {
                 active += 1;
@@ -98,6 +130,10 @@ public class UseAction : MonoBehaviour
                         // Player choose to throw
                         Debug.Log("Throw");
                         break;
+                    case AvailableAction.Glove:
+                        // Player choose to use boot ability
+                        Debug.Log("Glove");
+                        break;
                     case AvailableAction.Boot:
                         // Player choose to use boot ability
                         Debug.Log("Boot");
@@ -116,6 +152,10 @@ public class UseAction : MonoBehaviour
                         break;
                 }
             }
+        }
+        for (int i = 0; i < actionWheel.Length; i++)
+        {
+            actionWheel[i].color = new Color32(0, 0, 0, 0);
         }
     }
 
