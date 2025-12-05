@@ -27,39 +27,77 @@ public class Player_Movement : MonoBehaviour
     void Start()
     {
         MovementList = new List<Vector3Int>();
-        
+        OnDiagonal = false;
     }
-
+    bool OnDiagonal = false;
     // Update is called once per frame
     void Update()
     {
         if (NBMovement < MaxMovement && IsSelected)
         {
-            if(ResetDesiredPosition)
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                OnDiagonal = true;
+            }
+            if (ResetDesiredPosition)
             {
                 Debug.Log("Reset Desired Position");
-                TestPosition = new Vector3Int((int) PlayerTransform.position.x, (int)PlayerTransform.position.y, (int)PlayerTransform.position.z);
+                TestPosition = new Vector3Int((int)PlayerTransform.position.x, (int)PlayerTransform.position.y, (int)PlayerTransform.position.z);
                 Debug.Log(DesiredPosition.transform.position);
                 ResetDesiredPosition = false;
             }
-            
+
             //Deplacement de du déplacement désiré (flèche)
-            if (Input.GetKeyDown(KeyCode.D)) { // Right
-                
-                TestPosition += new Vector3Int(1, 0, 0);
-                MovementList.Add(new Vector3Int(1, 0, 0));
-            } else if (Input.GetKeyDown(KeyCode.W)) { // Up
-                TestPosition += new Vector3Int(0, 0, 1);
-                MovementList.Add(new Vector3Int(0, 0, 1));
-            } else if (Input.GetKeyDown(KeyCode.A)) { // Left
-                TestPosition += new Vector3Int(-1, 0, 0);
-                MovementList.Add(new Vector3Int(-1, 0, 0));
-            } else if (Input.GetKeyDown(KeyCode.S)) { // Down
-                TestPosition += new Vector3Int(0, 0, -1);
-                MovementList.Add( new Vector3Int(0, 0, -1));
+            if (!OnDiagonal)
+            {
+
+                if (Input.GetKeyDown(KeyCode.D))
+                { // Right
+
+                    TestPosition += new Vector3Int(1, 0, 0);
+                    MovementList.Add(new Vector3Int(1, 0, 0));
+                }
+                else if (Input.GetKeyDown(KeyCode.W))
+                { // Up
+                    TestPosition += new Vector3Int(0, 0, 1);
+                    MovementList.Add(new Vector3Int(0, 0, 1));
+                }
+                else if (Input.GetKeyDown(KeyCode.A))
+                { // Left
+                    TestPosition += new Vector3Int(-1, 0, 0);
+                    MovementList.Add(new Vector3Int(-1, 0, 0));
+                }
+                else if (Input.GetKeyDown(KeyCode.S))
+                { // Down
+                    TestPosition += new Vector3Int(0, 0, -1);
+                    MovementList.Add(new Vector3Int(0, 0, -1));
+                }
             }
-            
-            
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.D))
+                { // Right
+
+                    TestPosition += new Vector3Int(1, 0, -1);
+                    MovementList.Add(new Vector3Int(1, 0, -1));
+                }
+                else if (Input.GetKeyDown(KeyCode.W))
+                { // Up
+                    TestPosition += new Vector3Int(1, 0, 1);
+                    MovementList.Add(new Vector3Int(1, 0, 1));
+                }
+                else if (Input.GetKeyDown(KeyCode.A))
+                { // Left
+                    TestPosition += new Vector3Int(-1, 0, 1);
+                    MovementList.Add(new Vector3Int(-1, 0, 1));
+                }
+                else if (Input.GetKeyDown(KeyCode.S))
+                { // Down
+                    TestPosition += new Vector3Int(-1, 0, -1);
+                    MovementList.Add(new Vector3Int(-1, 0, -1));
+                }
+            }
+
 
             if (TestPosition.x >= MinArea.x &&
                 TestPosition.x <= MaxArea.x &&
@@ -79,12 +117,12 @@ public class Player_Movement : MonoBehaviour
                     CharactereSelection.CharacterSelected = false;
                 }
                 CharactereSelection.AllMovementList.Add(gameObject, MovementList);
-                CharactereSelection.NbPlayerValided ++;
+                CharactereSelection.NbPlayerValided++;
                 MovementList = new List<Vector3Int>();
             }
-            
+
         }
-        
+
         GoingThroughGoal();
     }
 

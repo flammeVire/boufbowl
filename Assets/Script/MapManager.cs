@@ -25,4 +25,16 @@ public class MapManager : MonoBehaviour
     {
         AllObject.Remove(obj);
     }
+
+    public bool SomethingOverlap(GameObject obj)
+    {
+        foreach(var i in AllObject)
+        {
+            if (Vector3Int.CeilToInt(obj.transform.position)== Vector3Int.CeilToInt(i.transform.position))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
