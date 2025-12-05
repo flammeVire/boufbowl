@@ -17,7 +17,7 @@ public class UseAction : MonoBehaviour
     
     private State[] state = new State[] {State.Movement, State.Action, State.ChangePlayer, State.Skip };
     private AvailableAction[] choice =
-        new AvailableAction[] {AvailableAction.Grab, AvailableAction.Pass, AvailableAction.Throw, AvailableAction.Glove, AvailableAction.Boot, AvailableAction.Shield, AvailableAction.Consumable, AvailableAction.Return };
+        new AvailableAction[] { AvailableAction.Grab, AvailableAction.Pass, AvailableAction.Throw, AvailableAction.Glove, AvailableAction.Boot, AvailableAction.Shield, AvailableAction.Consumable, AvailableAction.Tackle, AvailableAction.Steal, AvailableAction.Return};
 
     [SerializeField] private Image[] baseWheel;
     [SerializeField] private Image[] actionWheel;
