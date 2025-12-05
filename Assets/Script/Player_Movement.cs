@@ -121,6 +121,7 @@ public class Player_Movement : MonoBehaviour
                 CharactereSelection.AllMovementList.Add(gameObject, MovementList);
                 CharactereSelection.NbPlayerValided++;
                 MovementList = new List<Vector3Int>();
+                NBMovement = 0;
             }
 
         }

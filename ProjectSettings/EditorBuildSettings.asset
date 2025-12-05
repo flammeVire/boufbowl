@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Noah'Scene.unity
     guid: 8174493fc9028454aa3ec5fced6ec89e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PlayerMovement.unity
     guid: cf86de11dd6f9bb4487c9ab492982118
+  - enabled: 1
+    path: Assets/Scenes/TheoScene.unity
+    guid: a3255c1b49477254c9831308aed2a339
   m_configObjects: {}
