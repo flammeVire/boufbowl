@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private bool IsCounting;
     private bool WasClicked;
 
-
+    public bool canMove = true;
     private void Update()
     {
         /*
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         {
 
             currentTimer += 0.1f;
-           // Debug.Log("Timer = " + currentTimer);
+           //Debug.Log("Timer = " + currentTimer);
             yield return new WaitForSecondsRealtime(0.1f);
             QuartTimer();
         }
@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour
     {
         if(currentTimer >= TurnTimer * 0.75)
         {
-            Debug.LogWarning("CameraShake");
             this.GetComponent<CameraController>().StartShake();
         }
     }
@@ -113,9 +112,12 @@ public class GameManager : MonoBehaviour
 
     public int GetCurrentTurn() { return CurrentTurn;}
 
+    public bool AllPlayerHaveMoved = false;
+
     IEnumerator TurnManagement()
     {
-        yield return new WaitUntil(() => TimerIsFinish() == false); // || fonction de charles)
+        yield return new WaitUntil(() => TimerIsFinish() == false || AllPlayerHaveMoved);
+        canMove = false;
         Debug.Log("Current turn : " + CurrentTurn);
         if (GameIsFinish())
         {
@@ -123,9 +125,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("YESSSS");
             IncrementTurn();
-
+            AllPlayerHaveMoved = false;
             iaManagement.LaunchCoroutine();
             //ici on peut mettre les trucs avant le reset
             ResetTimer();
@@ -134,8 +135,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("Relunch turn");
             yield return null;
             StartCoroutine(TurnManagement());
+            canMove = true;
         }
-        Debug.Log("NOOOOO");
     }
 
     bool GameIsFinish()

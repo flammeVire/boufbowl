@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    List<GameObject> AllObject;
+    public List<GameObject> AllObject;
 
-    public static MapManager mapManager;
+    public static MapManager instance;
 
     private void Start()
     {
-        mapManager = this;
+        instance = this;
     }
 
 
