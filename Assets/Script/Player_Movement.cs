@@ -36,13 +36,9 @@ public class Player_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("deplacement activer");
-            choixBouger = true;
-        }
+        Debug.Log("choix bouger" + choixBouger);
         //si le choix de la passe est validé
-        if (choixBouger == true)
+        if (true)
         {
             if (NBMovement <= MaxMovement && IsSelected)
             {
@@ -133,7 +129,7 @@ public class Player_Movement : MonoBehaviour
 
             } 
             GoingThroughGoal();
-            choixBouger = false;
+            
         }
             
     }
@@ -144,6 +140,7 @@ public class Player_Movement : MonoBehaviour
 
         DesiredPosition.transform.position = position;
         NBMovement++;
+        choixBouger = false;
     }
     
 
