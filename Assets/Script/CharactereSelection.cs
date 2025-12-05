@@ -9,7 +9,7 @@ public class CharactereSelection : MonoBehaviour
     
     private int selectedCharacter = 0;
     public bool CharacterSelected = false;
-    public List<List<Vector3Int>> AllMovementList = new List<List<Vector3Int>>();
+    public Dictionary<GameObject, List<Vector3Int>> AllMovementList = new();
     public int NbPlayerValided;
 
 
@@ -27,9 +27,12 @@ public class CharactereSelection : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                Debug.Log("Space Pressed");
                 characters[selectedCharacter].GetComponent<Player_Movement>().IsSelected = true;
                 CharacterSelected = true;
                 characters[selectedCharacter].GetComponent<Player_Movement>().ResetDesiredPosition = true;
+                
+                Debug.Log(characters[selectedCharacter].GetComponent<Player_Movement>().ResetDesiredPosition);
 
                 Debug.Log(CharacterSelected);
                 characters.RemoveAt(selectedCharacter);
@@ -80,12 +83,13 @@ public class CharactereSelection : MonoBehaviour
     IEnumerator SmoothMovement()
     {
         ResetList();
-        for (int i = 0; i < AllMovementList.Count; i++)
+        foreach (var character in AllMovementList.Keys)
         {
-            for (int j = 0; j < AllMovementList[i].Count; j++)
+            for (int j = 0; j < AllMovementList[character].Count; j++)
             {
-                Vector3Int movement = AllMovementList[i][j];
-                characteres2[i].transform.position += movement;
+                Debug.Log(AllMovementList[character]);
+                Vector3Int movement = AllMovementList[character][j];
+                character.transform.position += movement;
                 yield return  new WaitForSeconds(0.5f);
             }
         }
