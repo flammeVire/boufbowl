@@ -106,6 +106,7 @@ public class CharactereSelection : MonoBehaviour
             }
         }
         GameManager.instance.AllPlayerHaveMoved = true;
+        ResetList();
         yield return null;
     }
 }
