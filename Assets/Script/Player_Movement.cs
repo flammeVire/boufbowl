@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -17,8 +18,8 @@ public class Player_Movement : MonoBehaviour
     public bool ResetDesiredPosition = false;
     public CharactereSelection CharactereSelection;
     private Vector3Int TestPosition;
-    public Vector3Int MaxArea;
-    public Vector3Int MinArea;
+    public Vector3Int MaxArea = new Vector3Int(10, 5, 0);
+    public Vector3Int MinArea = new Vector3Int(-10, -5, 0);
     
     
     
@@ -57,16 +58,16 @@ public class Player_Movement : MonoBehaviour
                 TestPosition += new Vector3Int(0, 0, -1);
                 MovementList.Add( new Vector3Int(0, 0, -1));
             }
+            
+            
 
-            if (TestPosition.x > MinArea.x ||
-                TestPosition.x < MaxArea.x ||
-                TestPosition.y > MinArea.y ||
-                TestPosition.y < MaxArea.y)
+            if (TestPosition.x >= MinArea.x &&
+                TestPosition.x <= MaxArea.x &&
+                TestPosition.z >= MinArea.z &&
+                TestPosition.z <= MaxArea.z)
             {
-                DesiredPosition.transform.position = TestPosition;
+                applyDesiredPosition(TestPosition);
             }
-            
-            
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -86,8 +87,39 @@ public class Player_Movement : MonoBehaviour
         
         GoingThroughGoal();
     }
+
+    private void applyDesiredPosition(Vector3 position)
+    {
+        if (DesiredPosition.transform.position == position) return;
+
+        DesiredPosition.transform.position = position;
+        NBMovement++;
+    }
     
 
+    /*private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        // Centre du rectangle
+        Vector3 center = new Vector3(
+            (MinArea.x + MaxArea.x) * 0.5f,
+            transform.position.y, // même hauteur que ton objet
+            (MinArea.y + MaxArea.y) * 0.5f
+        );
+
+        // Taille du rectangle
+        Vector3 size = new Vector3(
+            Mathf.Abs(MaxArea.x - MinArea.x),
+            0.1f,
+            Mathf.Abs(MaxArea.y - MinArea.y)
+        );
+
+        Gizmos.DrawWireCube(center, size);
+    }*/
+
+    
+    
     bool VerifPlayerToDesired()
     {
         bool xOK = Mathf.Abs(PlayerTransform.position.x - DesiredPosition.transform.position.x) < 0.1f;

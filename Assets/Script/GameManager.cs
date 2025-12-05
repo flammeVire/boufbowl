@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         {
 
             currentTimer += 0.1f;
-            Debug.Log("Timer = " + currentTimer);
+           // Debug.Log("Timer = " + currentTimer);
             yield return new WaitForSecondsRealtime(0.1f);
             QuartTimer();
         }
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-
+    [SerializeField] IAManagement iaManagement;
     #region Turn
     [SerializeField] int MaxTurn;
     int CurrentTurn;
@@ -125,6 +125,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("YESSSS");
             IncrementTurn();
+
+            iaManagement.LaunchCoroutine();
             //ici on peut mettre les trucs avant le reset
             ResetTimer();
             yield return null;

@@ -13,11 +13,11 @@ public class UseAction : MonoBehaviour
     private IEnumerator coroutine;
 
     private enum State {Movement, Action, Skip, ChangePlayer};
-    private enum AvailableAction {Grab, Pass, Throw, Glove, Boot, Shield, Consumable, Return}
+    private enum AvailableAction {Grab, Pass, Throw, Glove, Boot, Shield, Consumable, Tackle, Steal, Return}
     
     private State[] state = new State[] {State.Movement, State.Action, State.ChangePlayer, State.Skip };
     private AvailableAction[] choice =
-        new AvailableAction[] {AvailableAction.Grab, AvailableAction.Pass, AvailableAction.Throw, AvailableAction.Glove, AvailableAction.Boot, AvailableAction.Shield, AvailableAction.Consumable, AvailableAction.Return };
+        new AvailableAction[] { AvailableAction.Grab, AvailableAction.Pass, AvailableAction.Throw, AvailableAction.Glove, AvailableAction.Boot, AvailableAction.Shield, AvailableAction.Consumable, AvailableAction.Tackle, AvailableAction.Steal, AvailableAction.Return};
 
     [SerializeField] private Image[] baseWheel;
     [SerializeField] private Image[] actionWheel;
@@ -148,6 +148,14 @@ public class UseAction : MonoBehaviour
                     case AvailableAction.Consumable:
                         // Player choose to use Consumable ability
                         Debug.Log("Consumable");
+                        break;
+                    case AvailableAction.Tackle:
+                        // Try to tackle an opponent on the ground
+                        Debug.Log("Tackle");
+                        break;
+                    case AvailableAction.Steal:
+                        // Steal the ball to an adjacent player
+                        Debug.Log("Steal");
                         break;
                     case AvailableAction.Return:
                         // Player choose to use boot ability

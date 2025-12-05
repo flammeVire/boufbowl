@@ -7,9 +7,12 @@ public class StatCharacter : ScriptableObject
     //health of players
     public float pv = 0f;
 
-    // ???
+    // la force == la distance d'envoie
     public float strength = 0f;
 
+    //possede la ball
+    public bool isHaveBall = false;
+    
     // Player Movement
     public int pointMouvementMax = 0;
 
