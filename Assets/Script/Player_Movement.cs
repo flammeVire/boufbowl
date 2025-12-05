@@ -8,7 +8,7 @@ public class Player_Movement : MonoBehaviour
 {
     
     [SerializeField] private Transform PlayerTransform;
-    [SerializeField] private GameObject DesiredPosition;
+    [SerializeField] public GameObject DesiredPosition;
     [SerializeField] private int NBMovement;
     [SerializeField] private int MaxMovement;
     public List<Vector3Int> MovementList;
@@ -125,8 +125,20 @@ public class Player_Movement : MonoBehaviour
                         IsSelected = false;
                         CharactereSelection.CharacterSelected = false;
                     }
-                    CharactereSelection.AllMovementList.Add(gameObject, MovementList);
-                    CharactereSelection.NbPlayerValided++;
+                    lock (CharactereSelection)
+                    {
+                        bool alreadyRegister = CharactereSelection.AllMovementList.ContainsKey(gameObject);
+                        if (alreadyRegister)
+                        {
+                            Debug.LogWarning($"Following player : {gameObject} is already in CharactereSelection.AllMovementList : {CharactereSelection.AllMovementList}");
+                            CharactereSelection.AllMovementList.Remove(gameObject);
+                        }
+                        CharactereSelection.AllMovementList.Add(gameObject, MovementList);
+                        if (!alreadyRegister)
+                        {
+                            CharactereSelection.NbPlayerValided++;
+                        }
+                    }
                     MovementList = new List<Vector3Int>();
                     NBMovement = 0;
                 }
