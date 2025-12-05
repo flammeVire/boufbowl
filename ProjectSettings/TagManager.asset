@@ -9,6 +9,7 @@ TagManager:
   - player
   - "ali\xE9"
   - ally
+  - ball
   layers:
   - Default
   - TransparentFX

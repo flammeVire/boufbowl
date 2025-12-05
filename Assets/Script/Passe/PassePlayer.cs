@@ -1,51 +1,104 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PassePlayer : MonoBehaviour
 {
     //public
     public GameObject[] PositionAlly;
-    public int AllySelected;
+    public int AllySelected = -1;
     public int indexCurrentAlly = 0;
     public bool choixPasse = false;
     public Transform transformBall;
+    public float passSpeed = 10f; 
+
+    //priver
+    private Vector3 targetPosition;
+    private bool isBallMoving = false;
     
-    // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (choixPasse == true)
-        {
-            PositionAlly = GameObject.FindGameObjectsWithTag("ally");
-        }
+        //transformBall = GameObject.FindGameObjectWithTag("ball").transform;
     }
     
+    void Update()
+    {
+        //si le choix de la passe est validé
+        if (choixPasse == true)
+        {
+            if (PositionAlly == null || PositionAlly.Length == 0)
+            {
+                PositionAlly = GameObject.FindGameObjectsWithTag("ally");
+                if (PositionAlly.Length > 0)
+                {
+                    indexCurrentAlly = 0;
+                }
+            } 
+            if (!isBallMoving)
+            {
+                SelectedAlly();
+            }
+        }
+        if (isBallMoving)
+        {
+            LancerBallUpdate();
+        }
+    }
     public void SelectedAlly() {
-        //deplacer la selection vers la droite
-        if (indexCurrentAlly > PositionAlly.Length) {
-            indexCurrentAlly = 0;
-            if (Input.GetKeyDown("Right")) {
-                indexCurrentAlly ++;
-                Debug.Log(indexCurrentAlly);
-            }
+        if (PositionAlly.Length == 0)
+        {
+            return;
         }
-        //deplacer la selection par la gauche
-        if (indexCurrentAlly < 0) {
-            indexCurrentAlly = PositionAlly.Length - 1;
-            if (Input.GetKeyDown("Left"))  { 
-                indexCurrentAlly--;
+        if (Input.GetKeyDown(KeyCode.RightArrow)) 
+        {
+            indexCurrentAlly++;
+            if (indexCurrentAlly >= PositionAlly.Length) 
+            {
+                indexCurrentAlly = 0;
             }
+            Debug.Log("Sélection allié : " + indexCurrentAlly);
         }
-        if (Input.GetKeyDown("Jump")) {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))  
+        { 
+            indexCurrentAlly--;
+            if (indexCurrentAlly < 0) 
+            {
+                indexCurrentAlly = PositionAlly.Length - 1;
+            }
+            Debug.Log("Sélection allié : " + indexCurrentAlly);
+        }
+        if (Input.GetKeyDown(KeyCode.Space)) 
+        {
             AllySelected = indexCurrentAlly;
+            Debug.Log("Allié CONFIRMÉ : " + AllySelected);
+            InitialiserPasse();
         }
-        transformBall.localPosition = PositionAlly[AllySelected].transform.localPosition;
+    }
+    public void InitialiserPasse()
+    {
+        if (AllySelected != -1 && PositionAlly.Length > AllySelected)
+        {
+            targetPosition = PositionAlly[AllySelected].transform.position;
+            isBallMoving = true;
+            choixPasse = false; // Désactiver la phase de sélection
+        }
+    }
+    public void LancerBallUpdate()
+    {
+        if (transformBall == null)
+        {
+            return;
+        }
+        transformBall.position = Vector3.MoveTowards(
+            transformBall.position, 
+            targetPosition, 
+            passSpeed * Time.deltaTime
+        );
+        if (transformBall.position == targetPosition)
+        {
+            isBallMoving = false;
+            AllySelected = -1;
+            Debug.Log("Passe terminée.");
+        }
     }
 }
