@@ -6,28 +6,29 @@ public class CharactereSelection : MonoBehaviour
 {
     List<GameObject> characters;
     [SerializeField] List<GameObject> characteres2;
-    
+
+    [SerializeField]public GameObject indicator;
+
     private int selectedCharacter = 0;
     public bool CharacterSelected = false;
     public Dictionary<GameObject, List<Vector3Int>> AllMovementList = new();
     public int NbPlayerValided;
-
 
     void Start()
     {
         characters = new List<GameObject>();
         ResetList();
     }
-
-    bool choixBouger;
     // Update is called once per frame
     void Update()
     {
         if (CharacterSelected == false)
         {
             if (GameManager.instance.canMove)
-            { 
+            {
+
                 selectPlayer();
+
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     Debug.Log("Space Pressed");
@@ -101,7 +102,7 @@ public class CharactereSelection : MonoBehaviour
                 if (MapManager.instance.SomethingOverlap(character))
                 {
                     Debug.Log("Overlap");
-                    character.transform.position -= movement;
+                    //character.transform.position -= movement;
                 }
                 yield return  new WaitForSeconds(0.5f);
             }
