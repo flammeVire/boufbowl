@@ -6,12 +6,13 @@ public class CharactereSelection : MonoBehaviour
 {
     List<GameObject> characters;
     [SerializeField] List<GameObject> characteres2;
-    
+
+    [SerializeField]public GameObject indicator;
+
     private int selectedCharacter = 0;
     public bool CharacterSelected = false;
     public Dictionary<GameObject, List<Vector3Int>> AllMovementList = new();
     public int NbPlayerValided;
-
 
     void Start()
     {
@@ -72,6 +73,7 @@ public class CharactereSelection : MonoBehaviour
 
             Debug.Log(characters[selectedCharacter]);
         }
+        indicator.transform.position = new Vector3(characters[selectedCharacter].transform.position.x, -1.5f, characters[selectedCharacter].transform.position.z);
     }
     
     public void RoundFinished()
