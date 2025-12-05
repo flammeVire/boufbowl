@@ -12,7 +12,7 @@ public class ShowTimer : MonoBehaviour
 
     public TextMeshProUGUI timerDisplay;
 
-    public Image timeBar;
+   // public Image timeBar;
     // Update is called once per frame
 
     void Start()
@@ -25,6 +25,6 @@ public class ShowTimer : MonoBehaviour
         tempTimer = GameManager.instance.GetTimer();
         intermediary = (int)tempTimer;
         timerDisplay.text = $"Timer : {timer - intermediary}";
-        timeBar.fillAmount = 1 - (tempTimer / timer);
+       // timeBar.fillAmount = 1 - (tempTimer / timer);
     }
 }
