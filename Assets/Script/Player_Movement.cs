@@ -20,6 +20,8 @@ public class Player_Movement : MonoBehaviour
     private Vector3Int TestPosition;
     public Vector3Int MaxArea = new Vector3Int(10, 5, 0);
     public Vector3Int MinArea = new Vector3Int(-10, -5, 0);
+    public Scoring scoring;
+    public ScriptableObject scriptableObject;
     
     
     
@@ -178,10 +180,21 @@ public class Player_Movement : MonoBehaviour
    {
        if (this.gameObject.CompareTag("Red Team") && PlayerTransform.position.x >= BlueGoalLine.position.x)
        {
+           Debug.Log(this.gameObject.GetComponents<MonoBehaviour>());
+           if (this.gameObject.GetComponent<PassePlayer>().statCharacter.isHaveBall == true)
+           {
+               Debug.Log("ball dans le goal rouge");
+               scoring.RedGetPoint();
+           }
            Debug.Log("But de l'equipe rouge");
        }
        else if (this.gameObject.CompareTag("Blue Team") && PlayerTransform.position.x >= RedGoalLine.position.x)
        {
+           if (this.gameObject.GetComponent<PassePlayer>().statCharacter.isHaveBall == true)
+           {
+               Debug.Log("ball dans le goal bleu");
+               scoring.BlueGetPoint();
+           }
            Debug.Log("But de l'equipe Bleue");
        }
    }
