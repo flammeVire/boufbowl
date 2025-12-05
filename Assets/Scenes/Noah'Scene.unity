@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 592939984}
   - component: {fileID: 592939983}
   - component: {fileID: 592939982}
+  - component: {fileID: 592939985}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -378,9 +379,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15a9016d7d34314482fa682f489844d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 1
   TurnTimer: 120
   iaManagement: {fileID: 554389994}
   MaxTurn: 10
+  AllPlayerHaveMoved: 0
 --- !u!4 &592939984
 Transform:
   m_ObjectHideFlags: 0
@@ -396,6 +399,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &592939985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592939981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddaaa1ac440c404992ff13c89ed4992, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllObject:
+  - {fileID: 1347489411}
+  - {fileID: 1094044631}
+  - {fileID: 2064784763}
+  - {fileID: 1523312865}
+  - {fileID: 179534042}
+  - {fileID: 747207624}
+  - {fileID: 1303053337}
+  - {fileID: 1337305394}
+  - {fileID: 1144095652}
+  - {fileID: 967202093}
 --- !u!1 &678201231
 GameObject:
   m_ObjectHideFlags: 0

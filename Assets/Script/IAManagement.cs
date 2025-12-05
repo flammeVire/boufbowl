@@ -12,14 +12,19 @@ public class IAManagement : MonoBehaviour
     public float stepDelay = 0.05f;
     public bool allowDiagonal = true;
 
+    // Réservations de cases pour éviter les collisions
+    private HashSet<Vector3Int> reservedTiles = new HashSet<Vector3Int>();
+
 
     public void LaunchCoroutine()
     {
+        reservedTiles.Clear(); // reset avant de lancer une séquence
         foreach (var ia in IAs)
         {
             StartCoroutine(MoveIASequence(ia, stepsToMove));
         }
     }
+
 
     IEnumerator MoveIASequence(Transform ia, int steps)
     {
@@ -50,13 +55,31 @@ public class IAManagement : MonoBehaviour
                 yield break;
 
             Vector3Int nextGrid = iaGrid + direction;
-            Vector3 nextWorld = nextGrid;
 
-            yield return StartCoroutine(MoveOneTile(ia, nextWorld));
+            // -------------------------------------------------------
+            //  RÉSERVATION : si quelqu'un veut déjà cette case, bloqué
+            // -------------------------------------------------------
+            if (reservedTiles.Contains(nextGrid))
+            {
+                yield break; // IA reste sur place
+            }
+            else
+            {
+                reservedTiles.Add(nextGrid);
+            }
+
+            // Déplacement
+            Vector3 nextWorld = nextGrid;
+            yield return MoveOneTile(ia, nextWorld);
 
             yield return new WaitForSeconds(stepDelay);
         }
+
+        // Une fois fini on peut nettoyer (optionnel)
+        reservedTiles.Clear();
     }
+
+
 
     IEnumerator MoveOneTile(Transform ia, Vector3 targetPos)
     {

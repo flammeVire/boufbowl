@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    List<GameObject> AllObject;
+    public List<GameObject> AllObject;
 
-    public static MapManager mapManager;
+    public static MapManager instance;
 
     private void Start()
     {
-        mapManager = this;
+        instance = this;
     }
 
 
@@ -28,13 +28,19 @@ public class MapManager : MonoBehaviour
 
     public bool SomethingOverlap(GameObject obj)
     {
-        foreach(var i in AllObject)
+        foreach (var i in AllObject)
         {
-            if (Vector3Int.CeilToInt(obj.transform.position)== Vector3Int.CeilToInt(i.transform.position))
+            if (i == null) continue;
+
+            if (i == obj) continue;
+
+            if (Vector3Int.FloorToInt(obj.transform.position) ==
+                Vector3Int.FloorToInt(i.transform.position))
             {
                 return true;
             }
         }
+
         return false;
     }
 }

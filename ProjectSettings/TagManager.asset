@@ -10,6 +10,8 @@ TagManager:
   - "ali\xE9"
   - ally
   - ball
+  - RedGoal
+  - BlueGoal
   layers:
   - Default
   - TransparentFX

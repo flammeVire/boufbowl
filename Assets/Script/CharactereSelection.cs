@@ -6,12 +6,13 @@ public class CharactereSelection : MonoBehaviour
 {
     List<GameObject> characters;
     [SerializeField] List<GameObject> characteres2;
-    
+
+    [SerializeField]public GameObject indicator;
+
     private int selectedCharacter = 0;
     public bool CharacterSelected = false;
     public Dictionary<GameObject, List<Vector3Int>> AllMovementList = new();
     public int NbPlayerValided;
-
 
     void Start()
     {
@@ -23,25 +24,29 @@ public class CharactereSelection : MonoBehaviour
     {
         if (CharacterSelected == false)
         {
-            selectPlayer();
-
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (GameManager.instance.canMove)
             {
-                Debug.Log("Space Pressed");
-                characters[selectedCharacter].GetComponent<Player_Movement>().IsSelected = true;
-                CharacterSelected = true;
-                characters[selectedCharacter].GetComponent<Player_Movement>().ResetDesiredPosition = true;
-                
-                Debug.Log(characters[selectedCharacter].GetComponent<Player_Movement>().ResetDesiredPosition);
 
-                Debug.Log(CharacterSelected);
-                characters.RemoveAt(selectedCharacter);
-            }
+                selectPlayer();
 
-            if (NbPlayerValided == 5)
-            {
-                RoundFinished();
-                NbPlayerValided = 0;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Debug.Log("Space Pressed");
+                    characters[selectedCharacter].GetComponent<Player_Movement>().IsSelected = true;
+                    CharacterSelected = true;
+                    characters[selectedCharacter].GetComponent<Player_Movement>().ResetDesiredPosition = true;
+
+                    Debug.Log(characters[selectedCharacter].GetComponent<Player_Movement>().ResetDesiredPosition);
+
+                    Debug.Log(CharacterSelected);
+                    characters.RemoveAt(selectedCharacter);
+                }
+
+                if (NbPlayerValided == 5)
+                {
+                    RoundFinished();
+                    NbPlayerValided = 0;
+                }
             }
         }
     }
@@ -68,6 +73,7 @@ public class CharactereSelection : MonoBehaviour
 
             Debug.Log(characters[selectedCharacter]);
         }
+        indicator.transform.position = new Vector3(characters[selectedCharacter].transform.position.x, -1.5f, characters[selectedCharacter].transform.position.z);
     }
     
     public void RoundFinished()
@@ -88,11 +94,21 @@ public class CharactereSelection : MonoBehaviour
             for (int j = 0; j < AllMovementList[character].Count; j++)
             {
                 Debug.Log(AllMovementList[character]);
+
                 Vector3Int movement = AllMovementList[character][j];
                 character.transform.position += movement;
+
+                Debug.Log(character);
+                if (MapManager.instance.SomethingOverlap(character))
+                {
+                    Debug.Log("Overlap");
+                    //character.transform.position -= movement;
+                }
                 yield return  new WaitForSeconds(0.5f);
             }
         }
+        GameManager.instance.AllPlayerHaveMoved = true;
+        ResetList();
         yield return null;
     }
 }

@@ -20,6 +20,9 @@ public class Player_Movement : MonoBehaviour
     private Vector3Int TestPosition;
     public Vector3Int MaxArea = new Vector3Int(10, 5, 0);
     public Vector3Int MinArea = new Vector3Int(-10, -5, 0);
+    public Scoring scoring;
+    public ScriptableObject scriptableObject;
+    public bool choixBouger = false;
     
     
     
@@ -33,99 +36,108 @@ public class Player_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (NBMovement <= MaxMovement && IsSelected)
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                OnDiagonal = true;
-            }
-            if (ResetDesiredPosition)
-            {
-                Debug.Log("Reset Desired Position");
-                TestPosition = new Vector3Int((int)PlayerTransform.position.x, (int)PlayerTransform.position.y, (int)PlayerTransform.position.z);
-                Debug.Log(DesiredPosition.transform.position);
-                ResetDesiredPosition = false;
-            }
-
-            //Deplacement de du déplacement désiré (flèche)
-            if (!OnDiagonal)
-            {
-
-                if (Input.GetKeyDown(KeyCode.D))
-                { // Right
-
-                    TestPosition += new Vector3Int(1, 0, 0);
-                    MovementList.Add(new Vector3Int(1, 0, 0));
-                }
-                else if (Input.GetKeyDown(KeyCode.W))
-                { // Up
-                    TestPosition += new Vector3Int(0, 0, 1);
-                    MovementList.Add(new Vector3Int(0, 0, 1));
-                }
-                else if (Input.GetKeyDown(KeyCode.A))
-                { // Left
-                    TestPosition += new Vector3Int(-1, 0, 0);
-                    MovementList.Add(new Vector3Int(-1, 0, 0));
-                }
-                else if (Input.GetKeyDown(KeyCode.S))
-                { // Down
-                    TestPosition += new Vector3Int(0, 0, -1);
-                    MovementList.Add(new Vector3Int(0, 0, -1));
-                }
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.D))
-                { // Right
-
-                    TestPosition += new Vector3Int(1, 0, -1);
-                    MovementList.Add(new Vector3Int(1, 0, -1));
-                }
-                else if (Input.GetKeyDown(KeyCode.W))
-                { // Up
-                    TestPosition += new Vector3Int(1, 0, 1);
-                    MovementList.Add(new Vector3Int(1, 0, 1));
-                }
-                else if (Input.GetKeyDown(KeyCode.A))
-                { // Left
-                    TestPosition += new Vector3Int(-1, 0, 1);
-                    MovementList.Add(new Vector3Int(-1, 0, 1));
-                }
-                else if (Input.GetKeyDown(KeyCode.S))
-                { // Down
-                    TestPosition += new Vector3Int(-1, 0, -1);
-                    MovementList.Add(new Vector3Int(-1, 0, -1));
-                }
-            }
-
-
-            if (TestPosition.x >= MinArea.x &&
-                TestPosition.x <= MaxArea.x &&
-                TestPosition.z >= MinArea.z &&
-                TestPosition.z <= MaxArea.z)
-            {
-                applyDesiredPosition(TestPosition);
-            }
-
-            if (Input.GetKeyDown(KeyCode.E) || NBMovement == MaxMovement)
-            {
-                for (int i = 0; i < MovementList.Count; i++)
-                {
-                    //PlayerTransform.position += MovementList[i];
-                    //VerifPlayerToDesired();
-                    IsSelected = false;
-                    CharactereSelection.CharacterSelected = false;
-                }
-                CharactereSelection.AllMovementList.Add(gameObject, MovementList);
-                CharactereSelection.NbPlayerValided++;
-                MovementList = new List<Vector3Int>();
-            }
-
+            Debug.Log("deplacement activer");
+            choixBouger = true;
         }
+        //si le choix de la passe est validé
+        if (choixBouger == true)
+        {
+            if (NBMovement <= MaxMovement && IsSelected)
+            {
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    OnDiagonal = true;
+                }
+                if (ResetDesiredPosition)
+                {
+                    Debug.Log("Reset Desired Position");
+                    TestPosition = new Vector3Int((int)PlayerTransform.position.x, (int)PlayerTransform.position.y, (int)PlayerTransform.position.z);
+                    Debug.Log(DesiredPosition.transform.position);
+                    ResetDesiredPosition = false;
+                }
 
-        GoingThroughGoal();
+                //Deplacement de du déplacement désiré (flèche)
+                if (!OnDiagonal)
+                {
+                    if (Input.GetKeyDown(KeyCode.D))
+                    { // Right
+                        TestPosition += new Vector3Int(1, 0, 0);
+                        MovementList.Add(new Vector3Int(1, 0, 0));
+                    }
+                    else if (Input.GetKeyDown(KeyCode.W))
+                    { // Up
+                        TestPosition += new Vector3Int(0, 0, 1);
+                        MovementList.Add(new Vector3Int(0, 0, 1));
+                    }
+                    else if (Input.GetKeyDown(KeyCode.A))
+                    { // Left
+                        TestPosition += new Vector3Int(-1, 0, 0);
+                        MovementList.Add(new Vector3Int(-1, 0, 0));
+                    }
+                    else if (Input.GetKeyDown(KeyCode.S))
+                    { // Down
+                        TestPosition += new Vector3Int(0, 0, -1);
+                        MovementList.Add(new Vector3Int(0, 0, -1));
+                    }
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.D))
+                    { // Right
+
+                        TestPosition += new Vector3Int(1, 0, -1);
+                        MovementList.Add(new Vector3Int(1, 0, -1));
+                    }
+                    else if (Input.GetKeyDown(KeyCode.W))
+                    { // Up
+                        TestPosition += new Vector3Int(1, 0, 1);
+                        MovementList.Add(new Vector3Int(1, 0, 1));
+                    }
+                    else if (Input.GetKeyDown(KeyCode.A))
+                    { // Left
+                        TestPosition += new Vector3Int(-1, 0, 1);
+                        MovementList.Add(new Vector3Int(-1, 0, 1));
+                    }
+                    else if (Input.GetKeyDown(KeyCode.S))
+                    { // Down
+                        TestPosition += new Vector3Int(-1, 0, -1);
+                        MovementList.Add(new Vector3Int(-1, 0, -1));
+                    }
+                }
+
+
+                if (TestPosition.x >= MinArea.x &&
+                    TestPosition.x <= MaxArea.x &&
+                    TestPosition.z >= MinArea.z &&
+                    TestPosition.z <= MaxArea.z)
+                {
+                    applyDesiredPosition(TestPosition);
+                }
+
+                if (Input.GetKeyDown(KeyCode.E) || NBMovement == MaxMovement)
+                {
+                    for (int i = 0; i < MovementList.Count; i++)
+                    {
+                        //PlayerTransform.position += MovementList[i];
+                        //VerifPlayerToDesired();
+                        IsSelected = false;
+                        CharactereSelection.CharacterSelected = false;
+                    }
+                    CharactereSelection.AllMovementList.Add(gameObject, MovementList);
+                    CharactereSelection.NbPlayerValided++;
+                    MovementList = new List<Vector3Int>();
+                    NBMovement = 0;
+                }
+
+            } 
+            GoingThroughGoal();
+            choixBouger = false;
+        }
+            
     }
-
+    
     private void applyDesiredPosition(Vector3 position)
     {
         if (DesiredPosition.transform.position == position) return;
@@ -178,10 +190,21 @@ public class Player_Movement : MonoBehaviour
    {
        if (this.gameObject.CompareTag("Red Team") && PlayerTransform.position.x >= BlueGoalLine.position.x)
        {
+           Debug.Log(this.gameObject.GetComponents<MonoBehaviour>());
+           if (this.gameObject.GetComponent<PassePlayer>().statCharacter.isHaveBall == true)
+           {
+               Debug.Log("ball dans le goal rouge");
+               scoring.RedGetPoint();
+           }
            Debug.Log("But de l'equipe rouge");
        }
        else if (this.gameObject.CompareTag("Blue Team") && PlayerTransform.position.x >= RedGoalLine.position.x)
        {
+           if (this.gameObject.GetComponent<PassePlayer>().statCharacter.isHaveBall == true)
+           {
+               Debug.Log("ball dans le goal bleu");
+               scoring.BlueGetPoint();
+           }
            Debug.Log("But de l'equipe Bleue");
        }
    }
