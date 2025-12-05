@@ -33,7 +33,7 @@ public class Player_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (NBMovement < MaxMovement && IsSelected)
+        if (NBMovement <= MaxMovement && IsSelected)
         {
             if (Input.GetKeyDown(KeyCode.Tab))
             {
@@ -107,7 +107,7 @@ public class Player_Movement : MonoBehaviour
                 applyDesiredPosition(TestPosition);
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) || NBMovement == MaxMovement)
             {
                 for (int i = 0; i < MovementList.Count; i++)
                 {
